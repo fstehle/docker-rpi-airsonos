@@ -22,7 +22,11 @@ RUN export USER=root && npm install -g --unsafe-perm babel@5
 
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-RUN git clone https://github.com/stephen/airsonos && cd airsonos && git reset --hard 50d70ce && export USER=root && npm install -g --unsafe-perm
+RUN git clone https://github.com/stephen/airsonos && \
+    cd airsonos && \
+    sed -i 's|stephen/node-sonos.git#stephen-1.0.0|paixaop/node-sonos|' package.json && \
+    export USER=root && \
+    npm install -g --unsafe-perm
 
 RUN chmod +x /build/dbus.sh
 
